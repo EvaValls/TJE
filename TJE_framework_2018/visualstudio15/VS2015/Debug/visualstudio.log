@@ -1,0 +1,6 @@
+﻿  game.cpp
+c:\users\gti\desktop\eva\tje_framework_2018\src\game.cpp(111): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\GTI\Desktop\Eva\TJE_framework_2018\vc120.pdb'; linking object as if no debug info
+  visualstudio.vcxproj -> C:\Users\GTI\Desktop\Eva\TJE_framework_2018\visualstudio15\VS2015\..\..\game_debug.exe
