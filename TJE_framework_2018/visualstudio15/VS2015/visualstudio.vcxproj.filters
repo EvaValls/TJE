@@ -58,6 +58,9 @@
     <ClCompile Include="..\..\src\input.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\scene.cpp" />
+    <ClCompile Include="..\..\src\entity.cpp" />
+    <ClCompile Include="..\..\src\entityMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\camera.h" />
@@ -113,6 +116,9 @@
     <ClInclude Include="..\..\src\input.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\scene.h" />
+    <ClInclude Include="..\..\src\entity.h" />
+    <ClInclude Include="..\..\src\entityMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="extra">

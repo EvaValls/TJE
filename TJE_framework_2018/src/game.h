@@ -8,12 +8,12 @@
 #include "includes.h"
 #include "camera.h"
 #include "utils.h"
-
+#include "scene.h"
 class Game
 {
 public:
 	static Game* instance;
-
+	Scene* scene;
 	//window
 	SDL_Window* window;
 	int window_width;

@@ -9,17 +9,18 @@
 #include <cmath>
 
 //some globals
-Mesh* mesh = NULL;
-Mesh* mesh2 = NULL;
+/*Mesh* mesh = NULL;
 Texture* texture = NULL;
-Texture* texture2 = NULL;
-Shader* shader = NULL;
+Shader* shader = NULL;*/
+
 float angle = 0;
 
 Game* Game::instance = NULL;
 
 Game::Game(int window_width, int window_height, SDL_Window* window)
 {
+	scene = Scene::getInstance();
+	scene->setup();
 	this->window_width = window_width;
 	this->window_height = window_height;
 	this->window = window;
@@ -42,17 +43,15 @@ Game::Game(int window_width, int window_height, SDL_Window* window)
 	camera->setPerspective(70.f,window_width/(float)window_height,0.1f,10000.f); //set the projection, we want to be perspective
 
 	//create a plane mesh
-	mesh = Mesh::Load("data/cielo.ASE");
-	mesh2 = Mesh::Load("data/barco/barco.ASE");
+	/*mesh = Mesh::Load("data/box.ASE");
+
 	//load one texture
 	texture = new Texture();
- 	texture->load("data/cielo.tga");
-	texture2 = new Texture();
-	texture2->load("data/barco/barco.tga");
+ 	texture->load("data/texture.tga");
 
 	// example of shader loading
 	shader = Shader::Load("data/shaders/basic.vs", "data/shaders/texture.fs");
-
+	*/
 	//hide the cursor
 	SDL_ShowCursor(!mouse_locked); //hide or show the mouse
 }
@@ -68,8 +67,8 @@ void Game::render(void)
 
 	//set the camera as default
 	camera->enable();
-
-	glDisable(GL_DEPTH_TEST);
+	scene->render(camera);
+	/*glDisable(GL_DEPTH_TEST);
 
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
@@ -78,7 +77,7 @@ void Game::render(void)
 	//create model matrix for cube
 	Matrix44 m;
 	m.rotate( (float)(angle * DEG2RAD), Vector3(0.0f,1.0f, 0.0f) ); //build a rotation matrix
-
+	//scene->render(camera);
 	Shader* current_shader = shader;
 
 	if(current_shader)
@@ -95,10 +94,10 @@ void Game::render(void)
 
 		//current_shader->setUniform("u_model", m);
 		mesh->render(GL_TRIANGLES, current_shader);
-		mesh2->render(GL_TRIANGLES, current_shader);
+
 		//disable shader
 		current_shader->disable();
-	}
+	}*/
 
 	//Draw out world
 	drawGrid();
@@ -115,7 +114,7 @@ void Game::update(double seconds_elapsed)
 	float speed = seconds_elapsed * 100; //the speed is defined by the seconds_elapsed so it goes constant
 
 	//example
-	//angle += (float)seconds_elapsed * 10.0f;
+	angle += (float)seconds_elapsed * 10.0f;
 
 	//mouse input to rotate the cam
 	if ((Input::mouse_state & SDL_BUTTON_LEFT) || mouse_locked ) //is left button pressed?
@@ -130,8 +129,6 @@ void Game::update(double seconds_elapsed)
 	if (Input::isKeyPressed(SDL_SCANCODE_S) || Input::isKeyPressed(SDL_SCANCODE_DOWN)) camera->move(Vector3(0.0f, 0.0f,-1.0f) * speed);
 	if (Input::isKeyPressed(SDL_SCANCODE_A) || Input::isKeyPressed(SDL_SCANCODE_LEFT)) camera->move(Vector3(1.0f, 0.0f, 0.0f) * speed);
 	if (Input::isKeyPressed(SDL_SCANCODE_D) || Input::isKeyPressed(SDL_SCANCODE_RIGHT)) camera->move(Vector3(-1.0f,0.0f, 0.0f) * speed);
-	if (Input::isKeyPressed(SDL_SCANCODE_Y) || Input::isKeyPressed(SDL_SCANCODE_RIGHT)) camera->move(Vector3(0.0f, 1.0f, 0.0f) * speed);
-	if (Input::isKeyPressed(SDL_SCANCODE_U) || Input::isKeyPressed(SDL_SCANCODE_RIGHT)) camera->move(Vector3(0.0f, -1.0f, 0.0f) * speed);
 
 	//to navigate with the mouse fixed in the middle
 	if (mouse_locked)
