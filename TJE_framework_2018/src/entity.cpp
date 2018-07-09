@@ -12,8 +12,8 @@ void Entity::setName(std::string n) {
 	name = n;
 }
 void Entity::render(Camera *camera) {
-	for (int i = 0; i < children.size(); i++) {
-		children[i]->render(camera);
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->render(camera);
 	}
 }
 void Entity::update(float et) {

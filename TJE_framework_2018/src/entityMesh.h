@@ -10,15 +10,16 @@
 #include <map>
 #include <string>
 
-class EntityMesh : public Entity{
+class EntityMesh : public Entity {
 public:
-	EntityMesh();//constructor
+	EntityMesh(bool isStatic);//constructor
 	~EntityMesh();//destructor
 
 	Mesh* mesh;
 	Texture* texture;
 	Shader* shader;
 	Vector4 color;
+	bool is_static;
 	void setup(const char* meshName, const char* textureName, const char* vsf, const char* psf);
 	void render(Camera * camera);
 	Matrix44 getGlobalMatrix();

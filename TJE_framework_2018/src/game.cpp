@@ -68,12 +68,11 @@ void Game::render(void)
 	//set the camera as default
 	camera->enable();
 	scene->render(camera);
-	/*glDisable(GL_DEPTH_TEST);
+	
+	//glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_BLEND);
 
-	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-   
+   /*
 	//create model matrix for cube
 	Matrix44 m;
 	m.rotate( (float)(angle * DEG2RAD), Vector3(0.0f,1.0f, 0.0f) ); //build a rotation matrix
@@ -100,11 +99,12 @@ void Game::render(void)
 	}*/
 
 	//Draw out world
-	drawGrid();
+	//drawGrid();
 
 	//render the FPS
-	drawText(2, 2, getGPUStats(), Vector3(1, 1, 1), 2);
-
+	//drawText(2, 2, getGPUStats(), Vector3(1, 1, 1), 2);
+	//glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_CULL_FACE);
 	//swap between front buffer and back buffer
 	SDL_GL_SwapWindow(this->window);
 }

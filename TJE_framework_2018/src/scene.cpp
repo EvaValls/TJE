@@ -26,30 +26,36 @@ void Scene::setup() {
 
 	// WORLD
 	//sky->setName("sky");
-	sky = new EntityMesh();
-	sky->setup("data/sky/cubemap.ASE", "data/sky/cielo.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
+	sky = new EntityMesh(true);
+	sky->setup("data/sky/cielo.ASE", "data/sky/cielo.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
 	
 	/*EntityMesh* sea = new EntityMesh();
 	sea->setName("sea");
 	sea->setup("agua.ASE", "data/textures/agua.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
 	//sea->model.setTranslation(i * 10001, -10, j * 10001);
 	root->addChild((Entity*)sea);*/
-
+	//root->addChild(sky);
 
 	Entity* ground = new Entity();
-	EntityMesh* house1 = new EntityMesh();
-
+	EntityMesh* house1 = new EntityMesh(true);
+	EntityMesh* bunker = new EntityMesh(true);
+	EntityMesh* airport = new EntityMesh(true);
+	airport->setName("airport");
+	airport->setup("data/terrain_airport/terrain_airport.ASE", "data/terrain_airport/terrain_airport.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
 	house1->setup("data/terrain_props/house1.ASE", "data/terrain_props/houses_and_windows.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
 	house1->model.setIdentity();
-	ground->addChild((Entity*)house1);
+	bunker->setup("data/terrain_props/bunker.ASE", "data/terrain_props/bunkers_and_forts.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
+	bunker->model.setTranslation(-100, 2, 1);
+	ground->addChild(airport);
+	ground->addChild(house1);
+	ground->addChild(bunker);
 	root->addChild(ground);
-
-	//map_entities.push_back(ground);
+	root->addChild(sky);
+	
 }
 void Scene::render(Camera * camera) {
-	sky->render(camera);
-	
 	root->render(camera);
+	//sky->render(camera);
 	
 }
 void Scene::update(float elapsed_time) {}
