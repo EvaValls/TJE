@@ -15,7 +15,7 @@ EntityMesh::~EntityMesh() {
 }
 
 void EntityMesh::setup(const char* meshName, const char* textureName, const char* vsf, const char* psf) {
-	
+
 	mesh = Mesh::Load(meshName);
 	texture = Texture::Load(textureName);
 	shader = Shader::Load(vsf, psf);
