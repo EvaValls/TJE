@@ -31,6 +31,7 @@ void Scene::setup() {
 	Vector3 center = Camera::current->center;
 	//sky->model.scale(3, 3, 3);
 	sky->model.setTranslation(center.x, center.y, center.z);
+	sky->model.setScale(0.5, 0.5, 0.5);
 	sky->setup("data/sky/cielo.ASE", "data/sky/cielo.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
 
 
@@ -56,8 +57,9 @@ void Scene::setup() {
 		for (int j = -2; j < 2; j++)
 		{
 			EntityMesh* water = new EntityMesh(false);
-			//water->setName("water");
+			water->setName("water");
 			water->setup("data/agua/agua.ASE", "data/agua/agua.tga", "data/shaders/basic.vs", "data/shaders/texture.fs");
+			//water->model.setScale(2, 0, 2);
 			water->model.setTranslation(i * 10001, -10, j * 10001);
 			root->addChild((Entity*)water);
 		}
@@ -72,16 +74,18 @@ void Scene::render(Camera * camera) {
 	Vector3 center = camera->center;
 	sky->model.setTranslation(center.x, center.y, center.z);
 	sky->render(camera);
-	for (int i = -2; i < 2; i++)
-	{
-		for (int j = -2; j < 2; j++)
-		{
-			//water->model.setTranslation(i * 10001, -10, j * 10001);
-
-		}
-	}
+	
 	root->render(camera);
 }
 void Scene::update(float elapsed_time) {
+	Vector3 center = Camera::current->center;
+	Entity* water = root->getChild("water");
+	/*for (int i = -2; i < 2; i++)
+	{
+		for (int j = -2; j < 2; j++)
+		{
+			water->model.setTranslation(2*elapsed_time* 10001, ( - 10), 4*elapsed_time* 10001);
 
+		}
+	}*/
 }

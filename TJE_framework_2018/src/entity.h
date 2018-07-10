@@ -30,7 +30,7 @@ public:
 	//void rotate(Vector3 mov, float angle);
 	Vector3 getPosition();
 	Matrix44 getGlobalMatrix();
-
+	Entity* getChild(std::string name);
 
 };
 #endif

@@ -48,3 +48,10 @@ Matrix44 Entity::getGlobalMatrix() {
 Vector3 Entity::getPosition() {
 	return model * Vector3();
 }
+
+Entity* Entity::getChild(std::string name) {
+	for (int i = 0; i < children.size(); i++) {
+		if (this->children[i]->name == name) return this->children[i];
+	}
+	return NULL;
+}
