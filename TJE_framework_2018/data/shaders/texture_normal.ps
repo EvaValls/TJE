@@ -1,0 +1,73 @@
+uniform vec3 light;
+uniform vec3 view;
+
+uniform vec3 Ip;		//Intensitat de la llum al píxel
+uniform vec3 Ka;		//Reflexió de llum ambient de l'objecte
+uniform vec3 Ia;		//Intensitat de la llum ambient de l'escena
+uniform vec3 Kd;		//Reflexió de llum difusa de l'objecte
+uniform vec3 Id;		//Intensitat de la llum difusa del focus
+uniform vec3 Is;		//Intensitat de la llum especular de l'objecte
+uniform vec3 Ks;		//Reflexió de la llum especular del'objecte
+uniform float alpha;	//Factor de brillantor
+
+vec3 V;
+vec3 L;
+vec3 R;
+
+//vectors rebuts des de Vertex Shader
+varying vec3 N;
+varying vec3 P;
+
+//here create uniforms for all the data we need here
+
+//the texture passed from the application
+uniform sampler2D u_texture;
+uniform sampler2D normal_texture;
+
+varying vec2 v_coord;
+
+void main()
+{
+	//read the pixel RGBA from the texture at the position v_coord
+	vec4 color = texture2D( u_texture, v_coord );
+	vec4 v_normal = texture2D(normal_texture, v_coord );
+
+	//tornem a normalizar per si cas, ja que al vector shader s'ha dut a terme interpolacio
+	N=normalize(N);
+	P=normalize(P);
+
+	//Vector que va del punt a la llum
+	L = light - P;
+	L = normalize(L);
+	
+	//Vector que va del punt al centre de la càmera
+	V = view - P;
+	V = normalize(V);
+	
+
+	//Calcular el vector reflexat de la llum
+	R = reflect(-L, N);
+	R = normalize(R);
+
+	//Dot Product, clamp perquè no surti del rang
+	float LN = clamp(dot(L,N), 0.0, 1.0);
+	float RV = clamp(dot(R,V), 0.0, 1.0);
+
+	Kd=color.xyz;
+	Ka=color.xyz;
+	Ks=color.w*(1,1,1);
+
+	alpha=v_normal.w;
+	if(alpha<0){
+		alpha=1/abs(alpha);
+	}
+	vec3 sum = Kd*(LN)*Id + Ks*pow(RV,alpha)*Is;
+
+	//Calcular intensitat en el punt
+	vec3 Ip = Ka*Ia*color.xyz + sum;
+	
+	vec4 Ipc = vec4(Ip, 1.0);
+	
+	//assign the color to the output
+	gl_FragColor = Ipc*color;
+}

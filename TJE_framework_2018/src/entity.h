@@ -9,7 +9,7 @@
 #include <string>
 class Entity{
 public:
-	Entity();//constructor
+	Entity(bool _static, bool _blending);//constructor
 	virtual ~Entity();//destructor
 
 	std::string name;
@@ -17,6 +17,8 @@ public:
 	Matrix44 model;
 	std::vector<Entity*> children;
 	std::vector<Entity*> to_destroy;
+	bool is_static;
+	bool blending;
 	//bool destroyed;
 
 	virtual void render(Camera * camera);

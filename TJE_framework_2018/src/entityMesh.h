@@ -12,7 +12,7 @@
 
 class EntityMesh : public Entity {
 public:
-	EntityMesh(bool isStatic);//constructor
+	EntityMesh(bool isStatic, bool hasBlending);//constructor
 	~EntityMesh();//destructor
 
 	Mesh* mesh;

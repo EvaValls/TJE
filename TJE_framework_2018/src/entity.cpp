@@ -3,7 +3,7 @@
 #include "includes.h"
 #include <iostream>
 
-Entity::Entity() {
+Entity::Entity(bool _static, bool _blending) :is_static(_static), blending(_blending) {
 	parent = NULL;
 }
 Entity::~Entity() {
