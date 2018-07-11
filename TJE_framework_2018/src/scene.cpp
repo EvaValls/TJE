@@ -53,9 +53,9 @@ void Scene::setup() {
 	ground->addChild(house1);
 	ground->addChild(bunker);
 
-	EntityMesh* water = new EntityMesh(true, false);
+	EntityMesh* water = new EntityMesh(false, false);
 	water->setName("water");
-	water->setup("data/agua/agua.ASE", "data/agua/agua.tga", "data/shaders/water.vs", "data/shaders/water.fs");
+	water->setup("data/agua/agua.ASE", "data/agua/agua.tga", "data/shaders/basic.vs", "data/shaders/water.fs");
 	water->model.setTranslation(center.x, center.y, center.z);
 	root->addChild((Entity*)water);
 
@@ -73,14 +73,5 @@ void Scene::render(Camera * camera) {
 	root->render(camera);
 }
 void Scene::update(float elapsed_time) {
-	Vector3 center = Camera::current->center;
-	Entity* water = root->getChild("water");
-	for (int i = -2; i < 2; i++)
-	{
-		for (int j = -2; j < 2; j++)
-		{
-			water->model.setTranslation(2*elapsed_time* 10001, ( - 10), 4*elapsed_time* 10001);
-
-		}
-	}
+	
 }

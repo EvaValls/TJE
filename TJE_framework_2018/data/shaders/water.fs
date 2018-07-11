@@ -18,18 +18,19 @@ void main()
 	vec4 color_normal = texture2D(u_normal_texture, uv );
 
 	//passar de coordenades [0,1] a [-1,1]
-	vec3 N= 2*color_normal.xyz-1;
 
-	//intercanvir coordenades Y i Z
+	vec3 N= 2*color_normal.xyz-1.0;
+
+	//intercanviar coordenades Y i Z
 	vec3 N_z = vec3(N.x, N.z, N.y);
 
 	
 	//Vector que va del punt al centre de la càmera
-	vec3 V = v_world_position - u_camera_pos;
+	vec3 V = (v_world_position - u_camera_pos);
 	V = normalize(V);
 
 	//compute eye reflected vector
-	vec3 R = -reflect(V,N);
+	vec3 R = -reflect(V,N_z);
 
 	//compute the yaw using arc tangent 
 	float yaw =0.0;
@@ -43,9 +44,9 @@ void main()
 	vec2 uv_reflection = vec2(yaw, clamp(pitch, 0.0, 1.0) );
 
 	//read the sky texture (ignoring mipmaps to avoid problems)
-	vec3 sky_color = texture2DLod( u_sky_texture, uv_reflection, 3.0);
+	vec4 sky_color = texture2DLod( u_sky_texture, uv_reflection, 3.0);
 
 
-	color = mix(color, sky_color,1);
+	color = mix(color, sky_color,0.5);
 	gl_FragColor = color;
 }
